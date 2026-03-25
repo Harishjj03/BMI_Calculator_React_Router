@@ -1,5 +1,5 @@
 # Ex06 BMI Calculator
-## Date: 
+## Date: 25-03-2026
 
 ## AIM
 To develop a responsive and interactive Body Mass Index (BMI) Calculator using React that allows users to input their height and weight, and calculates their BMI to categorize their health status (e.g., Underweight, Normal, Overweight, Obese).
@@ -64,12 +64,143 @@ Create routing structure with react-router-dom:
 <li>Add styling using CSS or Tailwind.</li>
 
 ## PROGRAM
+APP.JSX
+```
+import React, { useState } from 'react';
+import './App.css';
 
+function App() {
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [bmi, setBmi] = useState(null);
+  const [message, setMessage] = useState('');
+
+  const calculateBMI = () => {
+    if (height > 0 && weight > 0) {
+      const heightInMeters = height / 100;
+      const bmiValue = weight / (heightInMeters * heightInMeters);
+      setBmi(bmiValue.toFixed(2));
+
+      if (bmiValue < 18.5) {
+        setMessage('Underweight');
+      } else if (bmiValue < 24.9) {
+        setMessage('Normal weight');
+      } else if (bmiValue < 29.9) {
+        setMessage('Overweight');
+      } else {
+        setMessage('Obese');
+      }
+    } else {
+      setBmi(null);
+      setMessage('Please enter valid height and weight.');
+    }
+  };
+
+  return (
+    <div className="container">
+      <h1>BMI Calculator</h1>
+      <div className="input-group">
+        <label>Height (cm):</label>
+        <input
+          type="number"
+          value={height}
+          onChange={(e) => setHeight(e.target.value)}
+        />
+      </div>
+      <div className="input-group">
+        <label>Weight (kg):</label>
+        <input
+          type="number"
+          value={weight}
+          onChange={(e) => setWeight(e.target.value)}
+        />
+      </div>
+      <button onClick={calculateBMI}>Calculate BMI</button>
+      {bmi && (
+        <div className="result">
+          <h2>Your BMI is: {bmi}</h2>
+          <p>Status: {message}</p>
+        </div>
+      )}
+      <footer>
+        Developed by HARISHBALA J | Reg No: 212224223002
+      </footer>
+    </div>
+  );
+}
+
+export default App;
+
+```
+APP.CSS
+```
+body {
+  font-family: Arial, sans-serif;
+  background-color: #eef1f4;
+  margin: 0;
+  padding: 0;
+}
+h1{
+  color: rgb(241, 38, 11);
+}
+
+.container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px;
+  background: rgb(236, 232, 232);
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px blueviolet;
+  text-align: center;
+}
+
+.input-group {
+  margin: 20px 0;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0d47a1;
+}
+
+.result {
+  margin-top: 20px;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #555;
+}
+
+```
 
 
 ## OUTPUT
-
-
+![alt text](<Screenshot 2026-03-25 114236.png>)
 
 
 ## RESULT
